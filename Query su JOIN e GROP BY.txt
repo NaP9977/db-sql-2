@@ -1,0 +1,64 @@
+select *
+from students 
+join degrees 
+on students.id = degrees.id 
+where degrees.name = 'Corso di Laurea in Economia';
+
+select * 
+from degrees 
+join departments 
+on degrees.department_id = departments.id 
+where level = 'magistrale' and departments.name = 'Dipartimento di Neuroscienze';
+
+
+select *
+from teachers  
+join course_teacher on course_teacher.teacher_id  = teachers.id 
+join courses on courses.id  = course_teacher.course_id 
+where teachers.name = 'Fulvio' and teachers.surname = 'Amato';
+
+select *
+from students 
+join degrees on degrees.id  = students.degree_id 
+join departments on departments.id = degrees.department_id  
+order by students.name, students.surname asc;
+
+select*
+from degrees 
+join courses on courses.degree_id = degrees.id 
+join course_teacher on course_teacher.course_id 
+join teachers on teachers.id = course_teacher.teacher_id;
+
+
+select distinct teachers.name, teachers.surname, departments.name 
+from teachers 
+join course_teacher on course_teacher.teacher_id = teachers.id 
+join courses on courses.id  = course_teacher.course_id 
+join degrees on degrees.id = courses.degree_id 
+join departments on departments.id = degrees.department_id 
+where departments.name = 'Dipartimento di Matematica';
+
+select students.id , exam_student.exam_id, count(*) as tentativi_svolti
+from exam_student
+join students on students.id = exam_student.student_id 
+group by student_id, exam_id 
+
+
+
+
+select year, count(*) as studenti_iscritti
+from courses 
+group by year;
+
+select office_address, count(*)
+from teachers
+group by office_address;
+
+select exam_id, avg(vote)as media_voti
+from exam_student 
+group by exam_id;
+
+
+select department_id ,  count(*) as corsi_di_laurea
+from degrees 
+group by department_id;
